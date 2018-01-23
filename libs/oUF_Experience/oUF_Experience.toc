@@ -1,0 +1,8 @@
+## Interface: 70300
+## Author: p3lim
+## Version: @project-version@
+## Title: oUF Experience
+## Notes: Experience Bar support for oUF layouts.
+## RequiredDeps: oUF
+
+oUF_Experience.lua

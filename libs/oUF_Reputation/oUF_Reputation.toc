@@ -1,0 +1,9 @@
+## Interface: 70300
+## Author: p3lim
+## Version: @project-version@
+## Title: oUF Reputation
+## Notes: Reputation Bar support for oUF layouts.
+## RequiredDeps: oUF
+
+PARAGON.lua
+oUF_Reputation.lua

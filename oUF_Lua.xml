@@ -1,0 +1,29 @@
+<Ui xmlns = "http://www.blizzard.com/wow/ui/">
+	
+	<!-- Engine -->
+	<Script file = "core\init.lua"/>
+	
+	<!-- Locales -->
+	<Include file = "locales\locales.xml"/>
+	
+	<!-- Configuration -->
+	<Script file = "config.lua"/>
+	
+	<!-- Core -->
+	<Script file = "core\api.lua"/>
+	<Script file = "core\functions.lua"/>
+	<Script file = "core\commands.lua"/>
+	
+	<!-- Libs -->
+	<Include file = "libs\libs.xml"/>
+	
+	<!-- Plugins -->
+	<Include file = "modules\plugins\plugins.xml"/>
+	
+	<!-- Unitframes -->
+	<Include file = "modules\unitframes\unitframes.xml"/>
+	
+	<!-- Development -->
+	<Script file = "core\development.lua"/>
+
+</Ui>
