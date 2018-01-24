@@ -17,6 +17,9 @@
 	<!-- Libs -->
 	<Include file = "libs\libs.xml"/>
 	
+	<!-- Nameplate -->
+	<Script file = "modules\nameplates\nameplates.lua"/>
+	
 	<!-- Plugins -->
 	<Include file = "modules\plugins\plugins.xml"/>
 	

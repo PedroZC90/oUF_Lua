@@ -2,6 +2,8 @@
 
 ### Changes in 1.0.0-release
 
- - Added:
- - Fixed:
- - Changed:
+ - Added: Nameplates layout for oUF.
+
+### Changes in 1.0.0-release
+
+ - Release

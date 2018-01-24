@@ -61,6 +61,12 @@ C["unitframes"] = {
 	["auratimer"] = true,
 }
 
+C["nameplates"] = {
+	["enable"] = true,										-- enable nameplate style.
+	["castbar"] = true,										-- enable nameplate castbar.
+	["debuffs"] = true,										-- enable debuffs casted by player above nameplate.
+}
+
 C["plugins"] = {
 	["dispel"] = true,										-- enable dispel announce.
 	["interrupt"] = true,									-- enable interrupt announce.

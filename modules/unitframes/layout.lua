@@ -108,6 +108,6 @@ oUF:Factory(function(self)
 		'columnSpacing', 13,
 		'columnAnchorPoint', "BOTTOM"
 		)
-		raid:SetPoint("LEFT", UIParent, "LEFT", 20, -200)
+		raid:SetPoint("LEFT", UIParent, "LEFT", 20, -130)
 	end
 end)

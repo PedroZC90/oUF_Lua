@@ -88,6 +88,16 @@ T.PostUpdateHealthRaid = function(self, unit, cur, max)
 	end
 end
 
+-- update health info value for nameplate units.
+T.PostUpdateHealthNameplates = function(self, unit, cur, max)
+	if (cur ~= max) then
+		self.value:SetFormattedText("%.1f%%", 100 * (cur / max))
+	else
+		self.value:SetFormattedText("%s", T.ShortValue(max))
+	end
+	self.value:SetTextColor(1.,1.,1.)
+end
+
 ------------------------------------------------------------
 -- Power
 ------------------------------------------------------------
