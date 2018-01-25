@@ -11,7 +11,7 @@ local SPEC_PALADIN_RETRIBUTION = SPEC_PALADIN_RETRIBUTION or 3
 local SPELL_POWER_HOLY_POWER = SPELL_POWER_HOLY_POWER or 9
 
 local function Update(self, event, unit, powerType)
-	if (unit ~= self.unit and (powerType and powerType ~= "HOLY_POWER")) then return end
+	if not (unit == self.unit and (powerType and powerType == "HOLY_POWER")) then return end
 	
 	local element = self.HolyPower
 	
@@ -83,7 +83,6 @@ local function Enable(self, unit)
 					bar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 				end
 				
-				-- code
 				bar:SetStatusBarColor(r, g, b)
 				bar:SetMinMaxValues(0, 1)
 			end

@@ -11,7 +11,7 @@ local SPEC_MAGE_ARCANE = SPEC_MAGE_ARCANE or 1
 local SPELL_POWER_ARCANE_CHARGES = SPELL_POWER_ARCANE_CHARGES or 16
 
 local function Update(self, event, unit, powerType)
-	if (unit ~= self.unit and (powerType and powerType ~= "ARCANE_CHARGES")) then return end
+	if not (unit == self.unit and (powerType and powerType == "ARCANE_CHARGES")) then return end
 	
 	local element = self.ArcaneCharges
 	
@@ -84,7 +84,6 @@ local function Enable(self, unit)
 					bar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 				end
 				
-				-- code
 				bar:SetStatusBarColor(r, g, b)
 				bar:SetMinMaxValues(0, 1)
 			end
