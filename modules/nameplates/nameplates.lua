@@ -57,8 +57,8 @@ local NameplateStyle = function(self)
 	Health.bg:SetColorTexture(1.,1.,1.,.0)
 	
 	Health.value = Health:CreateFontString(nil, "OVERLAY")
-	Health.value:SetPoint("RIGHT", Health, "RIGHT", -5, 1)
-	Health.value:SetJustifyH("RIGHT")
+	Health.value:SetPoint("CENTER", Health, "CENTER", 0, 1)
+	Health.value:SetJustifyH("CENTER")
 	Health.value:SetFont(fontName, fontSize, fontStyle)
 	
 	Health.frequentUpdates = true
