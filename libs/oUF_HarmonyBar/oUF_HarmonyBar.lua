@@ -20,8 +20,7 @@ local colors = {
 }
 
 local function Update(self, event, unit, powerType)
-	--if (unit ~= self.unit and (powerType and powerType ~= "CHI")) then return end
-	if (unit ~= self.unit and powerType ~= "CHI") then return end
+	if not (unit == self.unit and (powerType and powerType == "CHI")) then return end
 	
 	local element = self.HarmonyBar
 	
@@ -81,16 +80,16 @@ local function Visibility(self, event, unit)
 	local element = self.HarmonyBar
 	
 	local spec = GetSpecialization()
+	
 	if (spec == SPEC_MONK_WINDWALKER) then
-		element:Show()
+		UpdateMaxChi(self)
+		
+		Path(self, event, unit, "CHI")
 	else
-		element:Hide()
 		for i = 1, #element do
 			element[i]:Hide()
 		end
 	end
-	
-	Path(self, event, unit, "CHI")
 end
 
 local function ForceUpdate(element)
@@ -106,9 +105,8 @@ local function Enable(self, unit)
 		element.__max = #element
 		element.ForceUpdate = ForceUpdate
 		
-		self:RegisterEvent("UNIT_POWER_FREQUENT", Path)
-		self:RegisterEvent("PLAYER_ENTERING_WORLD", Visibility)
-		self:RegisterEvent("PLAYER_TALENT_UPDATE", UpdateMaxChi)
+		self:RegisterEvent("UNIT_POWER_FREQUENT", Visibility)
+		self:RegisterEvent("PLAYER_TALENT_UPDATE", Visibility)
 		
 		for i = 1, #element do
 			local bar = element[i]
@@ -117,13 +115,11 @@ local function Enable(self, unit)
 					bar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 				end
 				
-				-- code
 				bar:SetStatusBarColor(unpack(colors[i]))
 				bar:SetMinMaxValues(0, 1)
 			end
 		end
 		
-		UpdateMaxChi(self)
 		element:Hide()
 		
 		return true
@@ -132,10 +128,9 @@ end
 
 local function Disable(self)
 	if (self.HarmonyBar) then
-		self:UnregisterEvent("UNIT_POWER_FREQUENT", Path)
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD", Visibility)
-		self:UnregisterEvent("PLAYER_TALENT_UPDATE", UpdateMaxChi)
+		self:UnregisterEvent("UNIT_POWER_FREQUENT", Visibility)
+		self:UnregisterEvent("PLAYER_TALENT_UPDATE", Visibility)
 	end
 end
 
-oUF:AddElement("HarmonyBar", Path, Enable, Disable)
+oUF:AddElement("HarmonyBar", Visibility, Enable, Disable)
