@@ -42,3 +42,5 @@ Engine[1].Dummy = function() return end
 		-- print("World of Warcraft " .. Engine[1].WoWPatch .. " (" .. Engine[1].WoWBuild .. ")")
 	-- end
 -- end)
+
+oUFLua = Engine		-- Allow other addons to use the Engine
