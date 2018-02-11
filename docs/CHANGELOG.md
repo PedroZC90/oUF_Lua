@@ -1,5 +1,9 @@
 ## oUF_Lua ChangeLog:
 
+### Changes in 1.1.2-release
+
+ - Added: Allow other addons to use the Engine.
+
 ### Changes in 1.1.1-release
 
  - Bug: fixed oUF_HarmonyBar bug, where chi points would appear when changed talents from third row
