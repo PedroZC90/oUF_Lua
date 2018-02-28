@@ -1,5 +1,9 @@
 ## oUF_Lua ChangeLog:
 
+### Changes in 1.1.4-release
+
+ - Fixed: spell_announce bug. (*error at verifying ALL table)
+
 ### Changes in 1.1.3-release
 
  - Added: Spell Announce plugin.

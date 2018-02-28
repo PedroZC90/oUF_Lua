@@ -5,13 +5,11 @@ if not (C.plugins.enable and C.plugins.spellannounce) then return end
 -- Author: Duffed
 -- Editor: Luaerror
 ------------------------------------------------------------
-local format = string.format
-local tinsert = table.insert
-local tremove = table.insert
 
 local myName = UnitName("player")
 local myGUID = UnitGUID("player")
 local CHAT = "SAY"
+local format = string.format
 
 local COMBAT_EVENTS = {
 	SPELL_CAST_SUCCESS = true,
@@ -26,16 +24,16 @@ local COMBAT_EVENTS = {
 
 --[[
 	AURA	- announce spells that apply aura(buffs) casted by player or casted on player.
+	ALL		- announce spells that apply an aura at many units, announce just if player is affected.
 	CAST	- announce spells casted by the player only, that don't necessary apply any aura (example: Power Word: Barrier, Healing Rain, ...)
 	CHANNEL	- announce spells channeled by the player only. (example: Divine Hymn, Tranquility, ...)
 	SUMMON	- announce spells casted by player that summon an unit. (example: Totems, ...)
-	CC		- announce crowd control or debuff casted on player.
+	CC		- announce crowd control or debuff casted on player.							
 --]]
 local SUMMONED_UNITS = {}
 local SPELL_ANNOUNCE = {
 	AURA = {
 	-- Priest
-		[17] = true,		-- Power Word: Shield
 		[10060] = true,		-- Power Infusion
 		-- Discipline
 		[33206] = true,		-- Pain Suppression
@@ -82,7 +80,7 @@ local SPELL_ANNOUNCE = {
 		-- Protection
 		[871] = true,			-- Shield Wall
 	},
-	ALL_AURA = {
+	ALL = {
 		[2825] = true,			-- Bloodlust (Shaman Horde)
 		[32182] = true,			-- Heroism (Shaman Alliance)
 		[80353] = true,			-- Time Warp (Mage)
@@ -107,7 +105,7 @@ local SPELL_ANNOUNCE = {
 	-- Priest
 		-- Holy
 		[64843] = true,		-- Divine Hymn
-		
+
 	-- Monk
 		-- Brewmaster
 		[115176] = true,	-- Zen Meditation
@@ -233,7 +231,7 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 	for spell, check in pairs(SPELL_ANNOUNCE.AURA) do
 		local name = GetSpellInfo(spell)
 		if (check == true) and (spellName == name) then
-			
+			print("1")
 			if (combatEvent == "SPELL_AURA_APPLIED") then
 				local duration = select(6, UnitAura(destName, spellName))
 				if (sourceGUID == myGUID) then
@@ -278,8 +276,8 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 		end
 	end
 	
-	-- 
-	if ALL_AURA[spellID] then
+	-- Spells that apply aura in area, just announce if player is affected.
+	if SPELL_ANNOUNCE.ALL[spellID] then
 		if (destGUID ~= myGUID) then return end
 		if (combatEvent == "SPELL_AURA_APPLIED") then
 			local duration = select(6, UnitAura(destName, spellName))
