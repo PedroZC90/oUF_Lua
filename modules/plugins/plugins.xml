@@ -3,4 +3,8 @@
 	<Script file = "dispel.lua"/>
 	<Script file = "interrupt.lua"/>
 	<Script file = "achievscreenshot.lua"/>
+	<Script file = "spell_announce.lua"/>
+	<Script file = "raidcd.lua"/>
+	<Script file = "loc.lua"/>
+	
 </Ui>

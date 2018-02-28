@@ -1,8 +1,8 @@
 local F, C, L, G = unpack(select(2, ...))
+if not (C.plugins.enable and C.plugins.interrupt) then return end
 ------------------------------------------------------------
 -- Interrupt Announce by Elv22
 ------------------------------------------------------------
-if not C.plugins.interrupt then return end
 
 local channel = "SAY"
 

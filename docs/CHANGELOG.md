@@ -1,5 +1,11 @@
 ## oUF_Lua ChangeLog:
 
+### Changes in 1.1.3-release
+
+ - Added: Spell Announce plugin.
+ - Added: Raid Cooldown plugin.
+ - Added: Loss of Control plugin.
+
 ### Changes in 1.1.2-release
 
  - Added: Allow other addons to use the Engine.

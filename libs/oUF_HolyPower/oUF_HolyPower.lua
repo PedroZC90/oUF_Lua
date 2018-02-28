@@ -24,7 +24,7 @@ local function Update(self, event, unit, powerType)
 	
 	for i = 1, max do
 		if (i > cur) then
-			element[i]:Hide()
+			element[i]:Hide()	-- PROBLEM HERE (on create a char)
 			element[i]:SetValue(0)
 		else
 			element[i]:Show()

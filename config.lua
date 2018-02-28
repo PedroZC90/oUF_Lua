@@ -68,9 +68,13 @@ C["nameplates"] = {
 }
 
 C["plugins"] = {
+	["enable"] = true,										-- enable all plugins.
+	["loc"] = true,											-- eanble loss of control announce.
 	["dispel"] = true,										-- enable dispel announce.
 	["interrupt"] = true,									-- enable interrupt announce.
 	["achievscreenshot"] = true,							-- enable achievement auto screen-shot.
+	["spellannounce"] = true,								-- enable spell announce.
+	["raidcd"] = true,										-- enable raid cooldown.
 }
 
 C["media"] = {

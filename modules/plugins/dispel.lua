@@ -1,8 +1,8 @@
 local T, C, L, G = unpack(select(2, ...))
+if not (C.plugins.enable and C.plugins.dispel) then return end
 ------------------------------------------------------------
 -- Dispel Announce by Foof
 ------------------------------------------------------------
-if not C.plugins.dispel then return end
 
 local band = bit.band
 local COMBATLOG_OBJECT_AFFILIATION_MINE = COMBATLOG_OBJECT_AFFILIATION_MINE	-- 0x00000001

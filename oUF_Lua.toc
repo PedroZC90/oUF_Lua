@@ -1,6 +1,6 @@
 ## Interface: 70300
 ## Author: Luaerror
-## Version: 1.1.2-release
+## Version: 1.1.3-release
 ## Title: |cff00FF96oUF_Lua|r
 ## Notes: Minimalistic oUF layout.
 ## Website: https://github.com/PedroZC90/oUF_Lua
