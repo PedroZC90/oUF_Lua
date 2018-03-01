@@ -74,10 +74,10 @@ end
 local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...) 
 	if not COMBAT_EVENTS[combatEvent] then return end
 	
-	-- if not destGUID then destGUID = myGUID end
+	if not destGUID then destGUID = myGUID end
 	
-	-- if sourceGUID ~= myGUID and destGUID ~= myGUID then return end
-	-- if showSolo and sourceGUID ~= myGUID then return end
+	if sourceGUID ~= myGUID and destGUID ~= myGUID then return end
+	if showSolo and sourceGUID ~= myGUID then return end
 	
 	if not UnitBelongToPlayer(sourceFlags) then return end
 	

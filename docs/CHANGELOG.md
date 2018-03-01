@@ -1,8 +1,14 @@
 ## oUF_Lua ChangeLog:
 
+### Changes in 1.1.5-release
+
+ - Fixed: spell announce plugin bug. (/reload was necessary to it works)
+ - Fixed: oUF_HolyPower bug, it was showing 5 holy power on logging.
+ - Fixed: oUF_HarmonyBar bug, missing element:Hide() when spec was different than Windwalker.
+
 ### Changes in 1.1.4-release
 
- - Fixed: spell_announce bug. (*error at verifying ALL table)
+ - Fixed: spell announce plugin error, using wrong SPELL_ANNOUNCE.ALL table.
 
 ### Changes in 1.1.3-release
 

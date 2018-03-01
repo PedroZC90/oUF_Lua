@@ -6,9 +6,8 @@ if not (C.plugins.enable and C.plugins.spellannounce) then return end
 -- Editor: Luaerror
 ------------------------------------------------------------
 
-local myName = UnitName("player")
-local myGUID = UnitGUID("player")
-local CHAT = "SAY"
+local chat = "SAY"
+local myName, myGUID
 local format = string.format
 
 local COMBAT_EVENTS = {
@@ -180,7 +179,7 @@ local function OnUpdate(self, elapsed)
 			i = i + 1
 		else
 			count = count - 1
-			SendChatMessage(format(info.msg, unpack(info.args)), CHAT)
+			SendChatMessage(format(info.msg, unpack(info.args)), chat)
 			table.remove(WaitTable, i)
 		end
 	end
@@ -231,46 +230,45 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 	for spell, check in pairs(SPELL_ANNOUNCE.AURA) do
 		local name = GetSpellInfo(spell)
 		if (check == true) and (spellName == name) then
-			print("1")
 			if (combatEvent == "SPELL_AURA_APPLIED") then
 				local duration = select(6, UnitAura(destName, spellName))
 				if (sourceGUID == myGUID) then
 					if (destName ~= myName) then
 						if (duration) then
-							SendChatMessage(format("%s (%ds) casted on %s!", spellName, duration, destName), CHAT)
+							SendChatMessage(format("%s (%ds) casted on %s!", spellName, duration, destName), chat)
 						else
-							SendChatMessage(format("%s casted on %s!", spellName, destName), CHAT)
+							SendChatMessage(format("%s casted on %s!", spellName, destName), chat)
 						end
 					else
 						if (duration) then
-							SendChatMessage(format("%s (%ds) up!", spellName, duration), CHAT)
+							SendChatMessage(format("%s (%ds) up!", spellName, duration), chat)
 						else
-							SendChatMessage(format("%s up!", spellName), CHAT)
+							SendChatMessage(format("%s up!", spellName), chat)
 						end
 					end
 				else
 					if (destGUID == myGUID) then
 						if (duration) then
-							SendChatMessage(format("%s (%ds) on me!", spellName, duration), CHAT)
+							SendChatMessage(format("%s (%ds) on me!", spellName, duration), chat)
 						else
-							SendChatMessage(format("%s on me!", spellName), CHAT)
+							SendChatMessage(format("%s on me!", spellName), chat)
 						end
 					end
 				end
 			elseif (combatEvent == "SPELL_HEAL") then
 				if (sourceGUID == myGUID) then
 					local heal, overheal, absorbed, critical = select(4, ...)
-					SendChatMessage(format("%s healed %s for %d!", spellName, destName, heal), CHAT)
+					SendChatMessage(format("%s healed %s for %d!", spellName, destName, heal), chat)
 				end
 			elseif (combatEvent == "SPELL_AURA_REMOVED") then
 				if (sourceGUID == myGUID) then
 					if (destName ~= myName) then
-						SendChatMessage(format("%s on %s is over!", spellName, destName), CHAT)
+						SendChatMessage(format("%s on %s is over!", spellName, destName), chat)
 					else
-						SendChatMessage(format("%s over!", spellName), CHAT)
+						SendChatMessage(format("%s over!", spellName), chat)
 					end
 				elseif ((sourceGUID ~= myGUID) and (destGUID == myGUID)) then
-					SendChatMessage(format("%s over!", spellName), CHAT)
+					SendChatMessage(format("%s over!", spellName), chat)
 				end
 			end
 		end
@@ -281,9 +279,9 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 		if (destGUID ~= myGUID) then return end
 		if (combatEvent == "SPELL_AURA_APPLIED") then
 			local duration = select(6, UnitAura(destName, spellName))
-			SendChatMessage(format("%s (%ds) up!", spellName, duration), CHAT)
+			SendChatMessage(format("%s (%ds) up!", spellName, duration), chat)
 		elseif (combatEvent == "SPELL_AURA_REMOVED") then
-			SendChatMessage(format("%s over!", spellName), CHAT)
+			SendChatMessage(format("%s over!", spellName), chat)
 		end
 	end
 	
@@ -292,14 +290,14 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 		local duration = SPELL_ANNOUNCE.CAST[spellID]
 		if (sourceGUID == myGUID) then
 			if (combatEvent == "SPELL_CAST_SUCCESS") then
-				SendChatMessage(format("%s up!", spellName), CHAT)
+				SendChatMessage(format("%s up!", spellName), chat)
 					
 				-- add spell to wait table
 				if (type(duration) == "number" and duration > 0) then
 					Delay(duration, "%s over!", spellName)
 				end
 			elseif (combatEvent == "SPELL_AURA_REMOVED") and (duration == true) then
-				SendChatMessage(format("%s over!", spellName), CHAT)
+				SendChatMessage(format("%s over!", spellName), chat)
 			end
 		end
 	end
@@ -308,10 +306,10 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 	if SPELL_ANNOUNCE.CHANNEL[spellID] then
 		if (sourceGUID == myGUID) then
 			if (combatEvent == "SPELL_CAST_SUCCESS") then
-				SendChatMessage(format("Channeling %s!", spellName), CHAT)
+				SendChatMessage(format("Channeling %s!", spellName), chat)
 			elseif (combatEvent == "SPELL_AURA_REMOVED") then
 				if (destGUID == myGUID) then
-					SendChatMessage(format("%s over!", spellName), CHAT)
+					SendChatMessage(format("%s over!", spellName), chat)
 				end
 			end
 		end
@@ -320,7 +318,7 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 	-- Summons
 	if SPELL_ANNOUNCE.SUMMON[spellID] then
 		if (combatEvent == "SPELL_SUMMON") then
-			SendChatMessage(format("%s up!", spellName), CHAT)
+			SendChatMessage(format("%s up!", spellName), chat)
 			
 			-- save summoned unit GUID and name
 			table.insert(SUMMONED_UNITS, { timestamp = timestamp, GUID = destGUID, Name = destName, delay = 0 })
@@ -341,7 +339,7 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 	if (combatEvent == "UNIT_DIED") then
 		for index, unit in ipairs(SUMMONED_UNITS) do
 			if (unit.GUID == destGUID and unit.Name == destName) then
-				SendChatMessage(format("%s over!", destName), CHAT)
+				SendChatMessage(format("%s over!", destName), chat)
 				
 				-- remove unit from table.
 				table.remove(SUMMONED_UNITS, index)
@@ -355,9 +353,9 @@ local function ProcessCombatLog(self, timestamp, combatEvent, hideCaster, source
 		if (destGUID == myGUID) then
 			if (combatEvent == "SPELL_AURA_APPLIED") then
 				local duration = select(6, UnitDebuff(destName, spellName))
-				SendChatMessage(format("%s (%ds) on me!", spellName, duration), CHAT)
+				SendChatMessage(format("%s (%ds) on me!", spellName, duration), chat)
 			elseif (combatEvent == "SPELL_AURA_REMOVED") then
-				SendChatMessage(format("%s over!", spellName), CHAT)
+				SendChatMessage(format("%s over!", spellName), chat)
 			end
 		end
 	end
@@ -366,10 +364,25 @@ end
 local function OnEvent(self, event, ...)
 	if (event == "COMBAT_LOG_EVENT_UNFILTERED") then
 		ProcessCombatLog(self, ...)
+	elseif (event == "PLAYER_LOGIN") then
+		self:Initialize()
 	end
 end
 
 local f = CreateFrame("Frame")
-f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+--f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 f:SetScript("OnEvent", OnEvent)
 f:SetScript("OnUpdate", OnUpdate)
+
+function f:Initialize()
+	myName = UnitName("player")
+	myGUID = UnitGUID("player")
+	
+	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+end
+
+if IsLoggedIn() then
+	f:Initialize()
+else
+	f:RegisterEvent("PLAYER_LOGIN")
+end

@@ -72,8 +72,8 @@ local function Enable(self, unit)
 		element.__max = #element
 		element.ForceUpdate = ForceUpdate
 		
-		self:RegisterEvent("UNIT_POWER", Path)
-		self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", Visibility)
+		self:RegisterEvent("UNIT_POWER_FREQUENT", Visibility)
+		self:RegisterEvent("PLAYER_TALENT_UPDATE", Visibility)
 		
 		local r, g, b = unpack(self.colors.power["HOLY_POWER"])
 		for i = 1, #element do
@@ -96,9 +96,9 @@ end
 
 local function Disable(self)
 	if (self.HolyPower) then
-		self:UnregisterEvent("UNIT_POWER", Path)
-		self:UnregisterEvent("PLAYER_SPECIALIZATION_CHANGED", Visibility)
+		self:UnregisterEvent("UNIT_POWER_FREQUENT", Visibility)
+		self:UnregisterEvent("PLAYER_TALENT_UPDATE", Visibility)
 	end
 end
 
-oUF:AddElement("HolyPower", Path, Enable, Disable)
+oUF:AddElement("HolyPower", Visibility, Enable, Disable)

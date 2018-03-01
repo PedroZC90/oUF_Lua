@@ -80,12 +80,12 @@ local function Visibility(self, event, unit)
 	local element = self.HarmonyBar
 	
 	local spec = GetSpecialization()
-	
 	if (spec == SPEC_MONK_WINDWALKER) then
 		UpdateMaxChi(self)
 		
 		Path(self, event, unit, "CHI")
 	else
+		element:Hide()
 		for i = 1, #element do
 			element[i]:Hide()
 		end
