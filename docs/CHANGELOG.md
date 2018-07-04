@@ -1,5 +1,9 @@
 ## oUF_Lua ChangeLog:
 
+### Changes in 1.1.6-release
+
+ - Changed: edited README file.
+
 ### Changes in 1.1.5-release
 
  - Fixed: spell announce plugin bug. (/reload was necessary to it works)
